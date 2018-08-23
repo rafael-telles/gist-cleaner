@@ -33,8 +33,13 @@ def index():
 @app.route("/logged")
 def logged():
     gists = github.get("gists", all_pages=True)
-    import json
-    return json.dumps(gists)
+
+    count = 0
+    for gist in gists:
+        github.request("DELETE", "gists/{}".format(gist['id']))
+        count += 1
+    
+    return "Deleted {} gists.".format(count)
 
 
 if __name__ == "__main__":

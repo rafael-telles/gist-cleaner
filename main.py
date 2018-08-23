@@ -32,6 +32,10 @@ def index():
 
 @app.route("/logged")
 def logged():
+    return "Click <a href=\"/delete\">here</a> to delete all your gists."
+
+@app.route("/delete")
+def delete():
     gists = github.get("gists", all_pages=True)
 
     count = 0

@@ -32,7 +32,9 @@ def index():
 
 @app.route("/logged")
 def logged():
-    return str(github.get("gists"))
+	gists = github.get("gists", all_pages=True)
+	import json
+    return json.dumps(gists)
 
 
 if __name__ == "__main__":

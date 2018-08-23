@@ -28,11 +28,11 @@ def authorized(oauth_token):
 
 @app.route("/")
 def index():
-    return github.authorize()
+    return github.authorize(scope="gist")
 
 @app.route("/logged")
 def logged():
-    return "You are on GitHub"
+    return str(github.get("gists"))
 
 
 if __name__ == "__main__":

@@ -37,7 +37,6 @@ def logged():
     count = 0
     for gist in gists:
         resource = "gists/{}".format(gist['id'])
-        print(resource)
         github.delete(resource)
         count += 1
     

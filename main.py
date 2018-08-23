@@ -16,11 +16,10 @@ def token_getter():
     if user is not None:
         return user.github_access_token
 
-
 @app.route('/github-callback')
 @github.authorized_handler
 def authorized(oauth_token):
-    next_url = request.args.get('next') or url_for('index')
+    next_url = request.args.get('next') or url_for('logged')
     if oauth_token is None:
         flash("Authorization failed.")
         return redirect(next_url)
@@ -34,15 +33,13 @@ def authorized(oauth_token):
     db_session.commit()
     return redirect(next_url)
 
-
 @app.route("/")
 def index():
-    if not github.user:
-        return github.authorize()
+    return github.authorize()
 
-    return "You are @{login} on GitHub".format(login=dict(github.user))
-
-
+@app.route("/logged")
+def logged():
+    return "You are on GitHub"
 
 
 if __name__ == "__main__":

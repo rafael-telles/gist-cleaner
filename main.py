@@ -32,8 +32,8 @@ def index():
 
 @app.route("/logged")
 def logged():
-	gists = github.get("gists", all_pages=True)
-	import json
+    gists = github.get("gists", all_pages=True)
+    import json
     return json.dumps(gists)
 
 

@@ -36,7 +36,8 @@ def logged():
 
     count = 0
     for gist in gists:
-        github.request("DELETE", "gists/{}".format(gist['id']))
+        print(gist)
+        github.delete("gists/{}".format(gist['id']))
         count += 1
     
     return "Deleted {} gists.".format(count)

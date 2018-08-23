@@ -12,9 +12,7 @@ github = GitHub(app)
 
 @github.access_token_getter
 def token_getter():
-    user = g.user
-    if user is not None:
-        return user.github_access_token
+    return session['token']
 
 @app.route('/github-callback')
 @github.authorized_handler
@@ -24,13 +22,8 @@ def authorized(oauth_token):
         flash("Authorization failed.")
         return redirect(next_url)
 
-    user = User.query.filter_by(github_access_token=oauth_token).first()
-    if user is None:
-        user = User(oauth_token)
-        db_session.add(user)
+    session['token'] = oauth_token
 
-    user.github_access_token = oauth_token
-    db_session.commit()
     return redirect(next_url)
 
 @app.route("/")

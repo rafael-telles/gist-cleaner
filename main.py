@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask
+from flask import Flask, request, g, session, redirect, url_for
 from flask_github import GitHub
 
 app = Flask(__name__)
